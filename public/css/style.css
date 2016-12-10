@@ -8,6 +8,10 @@ body {
 }
 #map-canvas {
 	height: 100%;
+	width: 75%;
+	float: right;
+	margin: 1%;	
+	border: 1px solid black ;
 }
 #iw_container .iw_title {
 	font-size: 16px;
@@ -15,4 +19,11 @@ body {
 }
 .iw_content {
 	padding: 15px 15px 15px 0;
+}
+.boxed {
+  border: 1px solid black ;
+  width: 20%;
+  height: 100%;
+  float: left;
+  margin: 1%;	
 }

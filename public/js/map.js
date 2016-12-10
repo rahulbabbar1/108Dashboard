@@ -86,7 +86,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 // }
 
 // This function creates each marker and it sets their Info Window content
-function createMarker(latlng, name, address1, address2, postalCode,type){
+function createMarker(latlng, name,phone, address1, address2, postalCode,type){
    //var image= 'https://cdn3.iconfinder.com/data/icons/medical-2-1/512/map_marker-256.png';
    // var image = {
    //        url: 'https://cdn3.iconfinder.com/data/icons/medical-2-1/512/map_marker-256.png',
@@ -121,7 +121,8 @@ function createMarker(latlng, name, address1, address2, postalCode,type){
       // Creating the content to be inserted in the infowindow
       var iwContent = '<div id="iw_container" style="float:left;">' +
             '<div class="iw_title">' + name + '</div>' +
-         '<div class="iw_content">' + address1 + '<br />' +
+         '<div class="iw_content">' + phone + '<br />' +
+         address1 + '<br />' +
          address2 + '<br />' +
          postalCode + '</div></div>';
       
@@ -131,4 +132,45 @@ function createMarker(latlng, name, address1, address2, postalCode,type){
       // opening the Info Window in the current map and at the current marker location.
       infoWindow.open(map, marker);
    });
+
+    var div = document.createElement('div');
+
+    div.className = 'row';
+
+    div.innerHTML = '<center>' + name + ' '+  '(+91' + phone + ")" + '</center>'+'<br />';
+
+
+   div.addEventListener('click', function() {
+      
+      // Creating the content to be inserted in the infowindow
+      var iwContent = '<div id="iw_container" style="float:left;">' +
+            '<div class="iw_title">' + name + '</div>' +
+         '<div class="iw_content">' + '+91'+phone + '<br />' +
+         address1 + '<br />' +
+         address2 + '<br />' +
+         postalCode + '</div></div>';
+      
+      // including content to the Info Window.
+      infoWindow.setContent(iwContent);
+
+      // opening the Info Window in the current map and at the current marker location.
+      infoWindow.open(map, marker);
+   });
+
+   document.getElementById('driver_list').appendChild(div);
+
+
 }
+
+// function addRow(name) {
+//     var div = document.createElement('div');
+
+//     div.className = 'row';
+
+//     div.innerHTML = '<input type="text" name="name" value="" />\
+//         <input type="text" name="value" value="" />\
+//         <label> <input type="checkbox" name="check" value="1" /> Checked? </label>\
+//         <input type="button" value="-" onclick="removeRow(this)">';
+
+//      document.getElementById('driver_list').appendChild(div);
+// }

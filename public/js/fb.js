@@ -28,7 +28,7 @@
         console.log(childSnapshot.child("latitude").val());
 
         var latlng = new google.maps.LatLng(childSnapshot.child("latitude").val(),childSnapshot.child("longitude").val());
-        createMarker(latlng,'name', 'address1', 'address2', 'postalCode','ambulance');
+        createMarker(latlng,childSnapshot.child("name").val(),childSnapshot.child("phoneNumber").val(), 'address1', 'address2', 'postalCode','ambulance');
     
     });
 
