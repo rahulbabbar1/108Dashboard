@@ -15,7 +15,11 @@
 		  console.log(database.child("driver"));
 	});
 
-	database.once('value', function(snapshot) {
+	database.on('value', function(snapshot) {
+    
+    document.getElementById('driver_list').innerHTML ="";  
+    removeAll();
+
   snapshot.forEach(function(childSnapshot) {
     //var childKey = childSnapshot.key();
 
@@ -28,6 +32,7 @@
         console.log(childSnapshot.child("latitude").val());
 
         var latlng = new google.maps.LatLng(childSnapshot.child("latitude").val(),childSnapshot.child("longitude").val());
+
         createMarker(latlng,childSnapshot.child("name").val(),childSnapshot.child("phoneNumber").val(), 'address1', 'address2', 'postalCode','ambulance');
     
     });

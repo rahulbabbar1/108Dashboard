@@ -6,6 +6,8 @@
 // necessary variables
 var map;
 var infoWindow;
+var markers=[];
+var count=0;
 
 // markersData variable stores the information necessary to each marker
 //    {
@@ -87,16 +89,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 // This function creates each marker and it sets their Info Window content
 function createMarker(latlng, name,phone, address1, address2, postalCode,type){
-   //var image= 'https://cdn3.iconfinder.com/data/icons/medical-2-1/512/map_marker-256.png';
-   // var image = {
-   //        url: 'https://cdn3.iconfinder.com/data/icons/medical-2-1/512/map_marker-256.png',
-   //        // This marker is 20 pixels wide by 32 pixels high.
-   //        size: new google.maps.Size(256, 256),
-   //        // The origin for this image is (0, 0).
-   //        origin: new google.maps.Point(0, 0),
-   //        // The anchor for this image is the base of the flagpole at (0, 32).
-   //        anchor: new google.maps.Point(0, 32)
-   //      };
+ 
 
    var image = {
       url: 'images/ambulance.png',
@@ -105,18 +98,19 @@ function createMarker(latlng, name,phone, address1, address2, postalCode,type){
       anchor: new google.maps.Point(17, 34),
       scaledSize: new google.maps.Size(30, 30)
    };
-   var marker = new google.maps.Marker({
+   markers[count] = new google.maps.Marker({
       map: map,
       position: latlng,
       title: name,
       icon: image,
       anchorPoint: new google.maps.Point(-5, -20)
    });
+   
 
    // This event expects a click on a marker
    // When this event is fired the Info Window content is created
    // and the Info Window is opened.
-   google.maps.event.addListener(marker, 'click', function() {
+   google.maps.event.addListener(markers[count], 'click', function() {
       
       // Creating the content to be inserted in the infowindow
       var iwContent = '<div id="iw_container" style="float:left;">' +
@@ -130,7 +124,7 @@ function createMarker(latlng, name,phone, address1, address2, postalCode,type){
       infoWindow.setContent(iwContent);
 
       // opening the Info Window in the current map and at the current marker location.
-      infoWindow.open(map, marker);
+      infoWindow.open(map, markers[count]);
    });
 
     var div = document.createElement('div');
@@ -154,23 +148,17 @@ function createMarker(latlng, name,phone, address1, address2, postalCode,type){
       infoWindow.setContent(iwContent);
 
       // opening the Info Window in the current map and at the current marker location.
-      infoWindow.open(map, marker);
+      infoWindow.open(map, markers[count]);
    });
 
    document.getElementById('driver_list').appendChild(div);
 
-
+   count++;
 }
 
-// function addRow(name) {
-//     var div = document.createElement('div');
-
-//     div.className = 'row';
-
-//     div.innerHTML = '<input type="text" name="name" value="" />\
-//         <input type="text" name="value" value="" />\
-//         <label> <input type="checkbox" name="check" value="1" /> Checked? </label>\
-//         <input type="button" value="-" onclick="removeRow(this)">';
-
-//      document.getElementById('driver_list').appendChild(div);
-// }
+function removeAll(){
+   for(var i=0; i < count; i++){
+    markers[i].setMap(null);
+  }
+  count=0;
+}
