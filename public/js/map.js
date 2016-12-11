@@ -39,8 +39,8 @@ var count=0;
 
 function initialize() {
    var mapOptions = {
-      center: new google.maps.LatLng(20.5937,78.9629),
-      zoom: 6,
+      center: new google.maps.LatLng(13.0827,80.2707),
+      zoom: 11 ,
       mapTypeId: 'roadmap',
    };
 
@@ -88,43 +88,40 @@ google.maps.event.addDomListener(window, 'load', initialize);
 // }
 
 // This function creates each marker and it sets their Info Window content
-function createMarker(latlng, name,phone, address1, address2, postalCode,type){
+function createMarker(latlng, name,phone, type){
  
 
-   var image = {
-      url: 'images/ambulance.png',
-      size: new google.maps.Size(256, 256),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(30, 30)
-   };
-   markers[count] = new google.maps.Marker({
+   // var image = {
+   //    url: 'images/ambulance.png',
+   //    size: new google.maps.Size(256, 256),
+   //    origin: new google.maps.Point(0, 0),
+   //    anchor: new google.maps.Point(17, 34),
+   //    scaledSize: new google.maps.Size(30, 30)
+   // };
+   var marker = new google.maps.Marker({
       map: map,
       position: latlng,
       title: name,
-      icon: image,
-      anchorPoint: new google.maps.Point(-5, -20)
+      // icon: image,
+      // anchorPoint: new google.maps.Point(-5, -20)
    });
    
 
    // This event expects a click on a marker
    // When this event is fired the Info Window content is created
    // and the Info Window is opened.
-   google.maps.event.addListener(markers[count], 'click', function() {
+   google.maps.event.addListener(marker, 'click', function() {
       
       // Creating the content to be inserted in the infowindow
       var iwContent = '<div id="iw_container" style="float:left;">' +
             '<div class="iw_title">' + name + '</div>' +
-         '<div class="iw_content">' + phone + '<br />' +
-         address1 + '<br />' +
-         address2 + '<br />' +
-         postalCode + '</div></div>';
+         '<div class="iw_content">' + phone + '</div></div>';
       
       // including content to the Info Window.
       infoWindow.setContent(iwContent);
 
       // opening the Info Window in the current map and at the current marker location.
-      infoWindow.open(map, markers[count]);
+      infoWindow.open(map, marker);
    });
 
     var div = document.createElement('div');
@@ -137,21 +134,19 @@ function createMarker(latlng, name,phone, address1, address2, postalCode,type){
    div.addEventListener('click', function() {
       
       // Creating the content to be inserted in the infowindow
-      var iwContent = '<div id="iw_container" style="float:left;">' +
+      var iwContent = '<div id="iw_container_list" style="float:left;">' +
             '<div class="iw_title">' + name + '</div>' +
-         '<div class="iw_content">' + '+91'+phone + '<br />' +
-         address1 + '<br />' +
-         address2 + '<br />' +
-         postalCode + '</div></div>';
+         '<div class="iw_content">' + '+91'+phone + '</div></div>';
       
       // including content to the Info Window.
       infoWindow.setContent(iwContent);
 
       // opening the Info Window in the current map and at the current marker location.
-      infoWindow.open(map, markers[count]);
+      infoWindow.open(map, marker);
    });
 
    document.getElementById('driver_list').appendChild(div);
+   markers[count]=marker;
 
    count++;
 }
